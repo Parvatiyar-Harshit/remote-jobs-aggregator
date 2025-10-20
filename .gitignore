@@ -4,3 +4,4 @@ __pycache__/
 .env
 gitcreds.rtf
 data/*.db
+*.db

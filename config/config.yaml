@@ -1,0 +1,76 @@
+# ========================================================
+# Remote Jobs Aggregator - Configuration File
+# Phase: Data Ingestion (MVP)
+# ========================================================
+
+# --------------------------------------------------------
+# GENERAL SETTINGS
+# --------------------------------------------------------
+app:
+  name: "remote-jobs-aggregator"
+  version: "1.0.0"
+  run_mode: "local"       # options: local | dev | prod
+  log_level: "INFO"
+
+# --------------------------------------------------------
+# DATABASE SETTINGS
+# --------------------------------------------------------
+database:
+  type: "sqlite"
+  path: "data/jobs.db"
+
+# --------------------------------------------------------
+# SCRAPER SETTINGS
+# --------------------------------------------------------
+scraper:
+  sources:
+    - name: "RemoteOK"
+      api_url: "https://remoteok.com/api"
+      enabled: true
+    - name: "Remotive"
+      api_url: "https://remotive.com/api/remote-jobs"
+      enabled: true
+
+  # Frequency of scraping (used later for automation)
+  schedule_hours: 12       # currently runs twice a day
+
+# --------------------------------------------------------
+# FILTER SETTINGS
+# --------------------------------------------------------
+filter:
+  require_remote: true
+  exclude_currencies:
+    - "INR"
+  min_salary_usd: null     # optional future parameter
+  include_keywords: []     # optional keyword-based filtering
+  exclude_keywords: []     # optional keyword blacklist
+
+# --------------------------------------------------------
+# NOTIFICATION SETTINGS
+# --------------------------------------------------------
+notifier:
+  enabled: false
+  mode: "telegram"         # options: telegram | gsheet | none
+  telegram:
+    bot_token: ""
+    chat_id: ""
+  gsheet:
+    sheet_id: ""
+    credentials_path: ""
+
+# --------------------------------------------------------
+# LOGGING
+# --------------------------------------------------------
+logging:
+  file: "logs/pipeline.log"
+  rotate: true
+  max_size_mb: 5
+  backup_count: 3
+
+# --------------------------------------------------------
+# RESERVED FOR FUTURE USE
+# --------------------------------------------------------
+metadata:
+  author: "Parvatiyar-Harshit"
+  created: "2025-10-19"
+  description: "MVP configuration file for Remote Jobs Aggregator project."
